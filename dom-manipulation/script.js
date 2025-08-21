@@ -14,7 +14,7 @@ function showRandomQuote() {
     
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     
-    quotesDisplay.textContent = `${randomQuote.text} ${randomQuote.category}`
+    quotesDisplay.innerHTML = `${randomQuote.text} ${randomQuote.category}`
 
 }
 
