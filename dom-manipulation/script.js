@@ -19,11 +19,15 @@ function showRandomQuote() {
 }
 
 function createAddQuoteForm() {
+    const quotesDisplay = document.getElementById("quoteDisplay")
     const newQuoteText = document.getElementById("newQuoteText")
     const newQuoteCategory = document.getElementById("newQuoteCategory")
     const text = newQuoteText.value.trim() || ""
     const category = newQuoteCategory.value.trim() || ""
     quotes.push({ text, category }) 
+    const quote = document.createElement("p")
+    quote.innerHTML = `${text} ${category}`
+    quotesDisplay.appendChild(quote)
     newQuoteText.value = ""
     newQuoteCategory.value = ""
 } 
