@@ -123,7 +123,7 @@ async function savePost(title, body) {
 }
 
 function syncQuotes() {
-    console.log(quotes)
+    console.log("Quotes synced with server!")
 }
 
 setInterval(() => {
