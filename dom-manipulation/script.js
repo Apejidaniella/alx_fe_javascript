@@ -1,5 +1,6 @@
 const quotesString = localStorage.getItem("quotes")
 const quotes = JSON.parse(quotesString) || []
+const categoryFilter = document.getElementById("categoryFilter")
 
 function showRandomQuote() {
     const quotesDisplay = document.getElementById("quoteDisplay")
@@ -18,6 +19,7 @@ function createAddQuoteForm() {
     const text = newQuoteText.value.trim() || ""
     const category = newQuoteCategory.value.trim() || ""
     quotes.push({ text, category }) 
+    populateCategories();
     saveQuotes();
     const quote = document.createElement("p")
     quote.innerHTML = `${text} ${category}`
@@ -52,9 +54,39 @@ function saveQuotes() {
       alert('Quotes imported successfully!');
     };
     fileReader.readAsText(event.target.files[0]);
-  }
+}
+
+  
+function filterQuotes() {
+    const selectedCategory = categoryFilter.value
+    localStorage.setItem("lastFilter", selectedCategory)
+    const quotesDisplay = document.getElementById("quoteDisplay")
+    const filteredQuotes = quotes.filter(quote => quote.category === selectedCategory)
+    quotesDisplay.innerHTML = ""
+    filteredQuotes.forEach(quote => {
+        const newQuote = document.createElement("p")
+        newQuote.innerHTML = `${quote.text} ${quote.category}`
+        quotesDisplay.appendChild(newQuote)
+    })
+   
+}
+
+function populateCategories() {
+    const categories = quotes.map(quote => quote.category)
+    const uniqueCategories = [...new Set(categories)]
+    uniqueCategories.forEach(category => {
+        const option = document.createElement("option") 
+        option.innerHTML = category
+        option.value = category
+        categoryFilter.appendChild(option)
+    });
+} 
+
 const downloadBtn = document.getElementById("exportQuote")
 downloadBtn.addEventListener("click", downloadJSON)
 const newQuote = document.getElementById("newQuote")
 newQuote.addEventListener("click", showRandomQuote)
 
+populateCategories()
+
+categoryFilter.value = localStorage.getItem("lastFilter")
