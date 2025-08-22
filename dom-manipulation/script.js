@@ -65,7 +65,7 @@ function filterQuotes() {
     quotesDisplay.innerHTML = ""
     filteredQuotes.forEach(quote => {
         const newQuote = document.createElement("p")
-        newQuote.innerHTML = `${quote.text} ${quote.category}`
+        newQuote.textContent = `${quote.text} ${quote.category}`
         quotesDisplay.appendChild(newQuote)
     })
    
