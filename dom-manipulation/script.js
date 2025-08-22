@@ -122,4 +122,8 @@ async function savePost(title, body) {
     }
 }
 
+function syncQuotes() {
+    console.log(quotes)
+}
+
 fetchQuotesFromServer()
