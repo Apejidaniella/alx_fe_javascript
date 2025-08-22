@@ -92,7 +92,7 @@ populateCategories()
 
 categoryFilter.value = localStorage.getItem("lastFilter")
 
-async function fetchPosts() {
+async function fetchQuotesFromServer() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts')
         const posts = await response.json()
@@ -122,4 +122,4 @@ async function savePost(title, body) {
     }
 }
 
-fetchPosts()
+fetchQuotesFromServer()
