@@ -126,4 +126,7 @@ function syncQuotes() {
     console.log(quotes)
 }
 
+setInterval(() => {
+    fetchQuotesFromServer()
+}, 30000)
 fetchQuotesFromServer()
