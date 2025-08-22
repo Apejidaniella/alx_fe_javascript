@@ -26,6 +26,7 @@ function createAddQuoteForm() {
     quotesDisplay.appendChild(quote)
     newQuoteText.value = ""
     newQuoteCategory.value = ""
+    savePost(text, category)
 } 
 function addQuote() {
     createAddQuoteForm()
@@ -90,3 +91,35 @@ newQuote.addEventListener("click", showRandomQuote)
 populateCategories()
 
 categoryFilter.value = localStorage.getItem("lastFilter")
+
+async function fetchPosts() {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+        const posts = await response.json()
+        localStorage.setItem("posts", JSON.stringify(posts.slice(0, 10)))
+    } catch (error) {
+        console.error(error)
+    }
+}
+async function savePost(title, body) {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+                title,
+                body,
+                userId: 1,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+        const post = await response.json()
+        const posts = JSON.parse(localStorage.getItem("posts"))
+        localStorage.setItem("posts", JSON.stringify([...posts, post]))
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+fetchPosts()
